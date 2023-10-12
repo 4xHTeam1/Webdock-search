@@ -1,34 +1,24 @@
-const sql = require("mssql");
+import {
+  PrismaClient,
+  Category,
+  Status,
+  User,
+  FeatureRequest,
+  Comment,
+  CommentReply,
+  FeatureUpvote,
+} from "@prisma/client";
 
-const sqlConfig = {
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  server: process.env.DB_SERVER,
-  pool: {
-    max: 10,
-    min: 0,
-    idleTimeoutMillis: 30000,
-  },
-  options: {
-    encrypt: false, // for azure
-    trustServerCertificate: false, // change to true for local dev / self-signed certs
-  },
-};
+const prisma = new PrismaClient();
 
 class querys {
-  async test() {
-    try {
-      // make sure that any items are correctly URL encoded in the connection string
-      await sql.connect(sqlConfig);
-      const result = await sql.query`SELECT * FROM Feature_Requsts`;
-      console.dir(result);
-      return result;
-    } catch (err) {
-      // ... error checks
-      console.log(err);
-    }
-  }
+  a = async () => {
+    const test: Category | null = await prisma.category.findFirst();
+    console.log(test);
+    return test;
+  };
 }
+
+
 
 export default new querys();

@@ -2,9 +2,11 @@ import { Elysia } from "elysia";
 import querys from "./querys";
 
 const app = new Elysia()
-  .get("/", () => "Hello Elysia")
+  .get("/", async () => {
+    return querys.a();
+  })
   .post("/search", async () => {
-    return querys.test();
+    return querys.a();
   })
   .listen(3000);
 
